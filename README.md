@@ -48,3 +48,36 @@ ________________________________
     Utilisez un Service si vous devez communiquer entre deux controllers par exemple.
     Un service ne doit pas modifier ou se binder avec le DOM.
     Un service est instancié uniquement si il est requis.
+
+  * Validator
+  
+    Pour déclarer un validator :
+    - pds.validator('ValidatorName', callback);
+    
+    Un validator est exécuté si sur un element du DOM vous avez la property pds-validator="ValidatorName"
+    Et que vous appellez sur cette element jQuery pdsValid().
+    
+    Exemple :
+    
+    Use validator in DOM
+    ```html
+    <div>
+        <input id="inputToValid" pds-validator="ValidatorNegatif" value="5" />
+    </div>
+    ```
+    
+    Register validator :
+    ```javascript
+    pds.validator('ValidatorNegatif', function () {
+        var elem = $(this);
+        if (parseInt(elem.val()) >= 0) {
+            throw new Error("Pas négatif...");
+        }
+    });
+    ```
+    
+    Trigger validator :
+    ```javascript
+    $('#inputToValid').pdsValid();
+    ```
+    
