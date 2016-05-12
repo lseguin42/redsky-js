@@ -65,7 +65,6 @@
          *  - All Service herite this class
          */
         function Service(Services) {
-            console.log('SERVICE');
             ParentService.call(this, Services);
         }
         inherit(Service, ParentService);
