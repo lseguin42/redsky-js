@@ -1,7 +1,7 @@
 {
-  "name": "pds-js",
-  "description": "PDS Application - Micro Frameworks front (Home Made)",
-  "main": "lib/pds.js",
+  "name": "redsky-js",
+  "description": "RedSky Application - Micro Frameworks front-end",
+  "main": "lib/redsky.js",
   "authors": [
     "Lionel Seguin <lseguin[at]student[dot]42[dot]fr>"
   ],

@@ -1,4 +1,4 @@
-PDS Application
+ReDSky Application
 ===============================
 Micro Frameworks Front Home Made
 ________________________________
@@ -6,12 +6,12 @@ ________________________________
   * Controller
     
     Pour déclarer un controller :
-    - pds.controller('ControllerName', ControllerClass, [ 'DependenciesServiceName', ... ]);
+    - redsky.controller('ControllerName', ControllerClass, [ 'DependenciesServiceName', ... ]);
     
-    Pour chaque element du DOM avec l'attribute "pds-controller='ControllerName'"
+    Pour chaque element du DOM avec l'attribute "rds-controller='ControllerName'"
     une instance de "ControllerClass" sera créée avec en premier parametre un dictionnaire des services en dépendance
       
-    dans le scope du controller tous les éléments DOM avec l'attribute "pds-bind-controllername='variableName'"
+    dans le scope du controller tous les éléments DOM avec l'attribute "rds-bind='variableName'"
     seront automatiquement binder au controller.
     pour y accéder dans le controller : "this.$variableName".
     
@@ -23,8 +23,8 @@ ________________________________
       
     index.html
     ```html
-    <div pds-controller='ControllerName'>
-        <input pds-bind-controllername='myInput' name='inputName' value='my data'>
+    <div rds-controller='ControllerName'>
+        <input rds-bind='myInput' name='inputName' value='my data'>
     </div>
     ```
     
@@ -36,13 +36,13 @@ ________________________________
         this.$myInput.attr('name') // "inputName"
     }
 
-    pds.controller('ControllerName', ControllerClass);
+    redsky.controller('ControllerName', ControllerClass);
     ```
   
   * Service
     
     Pour déclarer un service :
-    - pds.service('ServiceName', ServiceClass, [ 'DependenciesServiceName', ... ]);
+    - redsky.service('ServiceName', ServiceClass, [ 'DependenciesServiceName', ... ]);
   
     Un service est instancié qu'une seul fois. La même instance est partagé entre tous vos Controllers et/ou Services.
     Utilisez un Service si vous devez communiquer entre deux controllers par exemple.
@@ -52,23 +52,23 @@ ________________________________
   * Validator
   
     Pour déclarer un validator :
-    - pds.validator('ValidatorName', callback);
+    - redsky.validator('ValidatorName', callback);
     
-    Un validator est exécuté si sur un element du DOM vous avez la property pds-validator="ValidatorName"
-    Et que vous appellez sur cette element jQuery pdsValid().
+    Un validator est exécuté si sur un element du DOM vous avez la property rds-validator="ValidatorName"
+    Et que vous appellez sur cette element jQuery rdsValid().
     
     Exemple :
     
     Use validator in DOM
     ```html
     <div>
-        <input id="inputToValid" pds-validator="ValidatorNegatif" value="5" />
+        <input id="inputToValid" rds-validator="ValidatorNegatif" value="5" />
     </div>
     ```
     
     Register validator :
     ```javascript
-    pds.validator('ValidatorNegatif', function () {
+    redsky.validator('ValidatorNegatif', function () {
         var elem = $(this);
         if (parseInt(elem.val()) >= 0) {
             throw new Error("Pas négatif...");
@@ -78,6 +78,5 @@ ________________________________
     
     Trigger validator :
     ```javascript
-    $('#inputToValid').pdsValid();
+    $('#inputToValid').rdsValid();
     ```
-    
