@@ -26,7 +26,6 @@
         {
             this.$root = $(element);
             this.$ = this.$root.find.bind(this.$root);
-            this._controllerName = this.$root.attr('redsky-controller');
             this._bindDOMElements();
             // super method
             ParentController.call(this, Services);
@@ -38,17 +37,21 @@
          */
         Controller.prototype._bindDOMElements = function () {
             var self = this;
+            var binds = self.$('[rds-bind]');
             
-            var attrName = 'redsky-bind-' + self._controllerName;
-            self.$('[' +  attrName + ']')
-            .each(function () {
-            var elem = $(this)
-            var name = '$' + elem.attr(attrName);
+            self.$('[rds-controller] [rds-bind]')
+              .each(function () {
+                binds.splice(binds.index(this), 1);
+            });
             
-            if (self[name])
-                self[name] = self[name].add(elem);
-            else
-                self[name] = elem;
+            binds.each(function () {
+                var elem = $(this)
+                var name = '$' + elem.attr('rds-bind');
+                
+                if (self[name])
+                    self[name] = self[name].add(elem);
+                else
+                    self[name] = elem;
             });
         }
         
@@ -71,9 +74,9 @@
     }
     
     /**
-     * RedSky Application Class
+     * RDS Application Class
      */
-    function RedSkyApplication() {
+    function RDSApplication() {
         var self = this;
         
         var deferred = Q.defer();
@@ -87,7 +90,7 @@
         };
         
         /**
-         * Controllers Register in RedSky Application
+         * Controllers Register in RDS Application
          */
         self.controllers = {
             /**
@@ -105,7 +108,7 @@
         }
         
         /**
-         * Services Register in RedSky Application
+         * Services Register in RDS Application
          */
         self.services = {
             /**
@@ -123,7 +126,7 @@
         };
         
         /**
-         * Validators Register in RedSky Application
+         * Validators Register in RDS Application
          */
         self.validators = {
         }
@@ -139,10 +142,10 @@
     }
     
     /**
-     * Init all Controllers on RedSky Application is ready
+     * Init all Controllers on RDS Application is ready
      * @private
      */
-    RedSkyApplication.prototype._run = function (deferred) {
+    RDSApplication.prototype._run = function (deferred) {
         var self = this;
 
         if (self.isReady.isFulfilled())
@@ -150,10 +153,10 @@
         if (deferred.promise !== self.isReady)
             throw new Error("Deferred given error.");
         deferred.resolve();
-        self.log('RedSky Application is ready...');
-        $('[redsky-controller]').each(function () {
+        self.log('RDS Application is ready...');
+        $('[rds-controller]').each(function () {
             var elem = $(this);
-            var name = elem.attr('redsky-controller');
+            var name = elem.attr('rds-controller');
             var Controller = self.controllers.class[name];
             if (!Controller)
                 self.error("Controller [" + name + "] isn't registered.");
@@ -168,16 +171,16 @@
     /**
      * @private
      */
-    RedSkyApplication.prototype._jQueryExtendMethod = function () {
+    RDSApplication.prototype._jQueryExtendMethod = function () {
         var self = this;
         
         jQuery.fn.extend({
-            redskyValid: function () {
+            rdsValid: function () {
                 this.each(function () {
                     var elem = $(this);
                     if (!elem.is(':valid'))
                         throw new Error("html5 not valid");
-                    var validator = elem.attr('redsky-validator');
+                    var validator = elem.attr('rds-validator');
                     if (!validator)
                         return ;
                     if (!self.validators[validator]) {
@@ -194,7 +197,7 @@
         });
     }
     
-    RedSkyApplication.prototype._listAuthorizedLog = function () {
+    RDSApplication.prototype._listAuthorizedLog = function () {
         var self  = this;
         var types = [ 'error', 'warn', 'log' ];
         var res   = [ ];
@@ -217,7 +220,7 @@
     /**
      * Active debug mode
      */
-    RedSkyApplication.prototype.debug = function (level) {
+    RDSApplication.prototype.debug = function (level) {
         var self = this;
         
         self._level = level;
@@ -228,11 +231,11 @@
                 s += ", "
             s += str;
         });
-        console.log('[DEBUG]: redsky debug display [', s, ']');
+        console.log('[DEBUG]: ReDSky debug display [', s, ']');
     }
     
     /**
-     * Log value autorized of global __RedSky_DEGUG_LEVEL__
+     * Log value autorized of global __REDSKY_DEGUG_LEVEL__
      * 
      * 0|1 => display [log, warning, error]
      * 2   => display [warning, error]
@@ -242,7 +245,7 @@
      * -2  => display [warning]
      * -3  => display [error]
      */
-    RedSkyApplication.prototype._console = function (type) {
+    RDSApplication.prototype._console = function (type) {
         var self = this;
         
         type = type.toLowerCase();
@@ -251,28 +254,28 @@
         return function noop(){};
     }
     
-    Object.defineProperty(RedSkyApplication.prototype, 'log', {
+    Object.defineProperty(RDSApplication.prototype, 'log', {
         get: function () {
             return this._console('log');
         }
     });
     
-    Object.defineProperty(RedSkyApplication.prototype, 'warn', {
+    Object.defineProperty(RDSApplication.prototype, 'warn', {
         get: function () {
             return this._console('warn');
         }
     });
     
-    Object.defineProperty(RedSkyApplication.prototype, 'error', {
+    Object.defineProperty(RDSApplication.prototype, 'error', {
         get: function () {
             return this._console('error');
         }
     });
    
     /**
-     * Register controller in RedSky Application
+     * Register controller in RDS Application
      */
-    RedSkyApplication.prototype.controller = function (name, ControllerClass, serviceDependencies)
+    RDSApplication.prototype.controller = function (name, ControllerClass, serviceDependencies)
     {
         var self = this;
         
@@ -290,9 +293,9 @@
     }
     
     /**
-     * Register validator in RedSky Application
+     * Register validator in RDS Application
      */
-    RedSkyApplication.prototype.validator = function (name, callback) {
+    RDSApplication.prototype.validator = function (name, callback) {
         var self = this;
         
         if (self.validators[name]) {
@@ -305,9 +308,9 @@
     }
     
     /**
-     * Register service in RedSky Application
+     * Register service in RDS Application
      */
-    RedSkyApplication.prototype.service = function (name, ServiceClass, serviceDependencies)
+    RDSApplication.prototype.service = function (name, ServiceClass, serviceDependencies)
     {
         var self = this;
         
@@ -327,7 +330,7 @@
      * Get Services List by name
      * @return Services{}
      */
-    RedSkyApplication.prototype.getAllServices = function (servicesList) {
+    RDSApplication.prototype.getAllServices = function (servicesList) {
         var self = this;
         
         var services = {};
@@ -343,7 +346,7 @@
      * Get Service by name
      * @return Service
      */
-    RedSkyApplication.prototype.getService = function (name) {
+    RDSApplication.prototype.getService = function (name) {
         var self = this;
        
         if (!self.isReady.isFulfilled())
@@ -364,20 +367,20 @@
     /**
      * Config application
      */
-    RedSkyApplication.prototype.config = function ()
+    RDSApplication.prototype.config = function ()
     {
         throw "Not implemented";
     }
     
     /**
-     * declare redsky application in global scope
+     * declare rds application in global scope
      */
-    var redsky = new RedSkyApplication();
+    var redsky = new RDSApplication();
     
     module_export.redsky = redsky;
     
-    if (typeof __RedSky_DEGUG_LEVEL__ == 'number') {
-        redsky.debug(__RedSky_DEGUG_LEVEL__);
+    if (typeof __REDSKY_DEGUG_LEVEL__ == 'number') {
+        redsky.debug(__REDSKY_DEGUG_LEVEL__);
     }
     
 })(window);

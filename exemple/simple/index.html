@@ -1,0 +1,38 @@
+<html>
+    <head>
+    </head>
+    <body>
+	<h1>RedSky Simple exemple</h1>
+	<div rds-controller="FirstCtrl">
+	    <input rds-bind="input"  type="text"   value="" />
+	    <input rds-bind="button" type="button" value="hello world" />  
+	</div>
+	<script>
+	    var __REDSKY_DEGUG_LEVEL__ = 0;
+	</script>	
+	<script src="../../lib/redsky.js"></script>
+	<script>
+	    (function () {
+
+		/**
+		 * First Controller
+		 */
+		function FirstCtrl() {
+		    var self = this;
+
+		    self.$input.val('set value');
+
+		    self.$button.on('click', function () {
+			alert(self.$input.val());
+		    });
+		}
+		
+		/**
+		 * Register First Controller
+		 */
+		redsky.controller('FirstCtrl', FirstCtrl);
+
+	    })();
+	</script>
+    </body>
+</html>

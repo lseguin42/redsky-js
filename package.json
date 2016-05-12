@@ -1,0 +1,26 @@
+{
+  "name": "redsky-js",
+  "version": "1.0.0",
+  "description": "ReDSky Application =============================== Micro Frameworks Front Home Made ________________________________",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lseguin42/redsky-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lseguin42/redsky-js/issues"
+  },
+  "homepage": "https://github.com/lseguin42/redsky-js#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify": "0.0.11",
+    "gulp-uglify": "^1.5.3",
+    "main-bower-files": "^2.13.0"
+  }
+}
