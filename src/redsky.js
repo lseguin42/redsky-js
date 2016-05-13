@@ -192,7 +192,30 @@
                     }
                 });
                 return true;
+            },
+            /*
+            watch: function (name, fn) {
+                if (typeof name === 'function') {
+                    fn = name;
+                    name = null;
+                }
+                console.log('watch');
+                this.each(function () {
+                    if (!this.__rds_observer__) {
+                        this.__rds_observer__ = new MutationObserver(function(mutations) {
+                            mutations.forEach(function (mutation) {
+                                console.log(mutation);
+                            });
+                        });
+                        console.log('observer added', this);
+                        var config = { attributes: true };
+                        this.__rds_observer__.observe(this, config);
+                        this.__rds_observer__.events = [];
+                    }
+                    this.__rds_observer__.events.push({ name: name, fn: fn });
+                });
             }
+            */
         });
     }
     
