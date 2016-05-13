@@ -1,4 +1,4 @@
-ReDSky Application
+ReDSky js
 ===============================
 Micro Frameworks Front Home Made
 ________________________________
@@ -9,7 +9,7 @@ Pour déclarer un controller :
 - redsky.controller('ControllerName', ControllerClass, [ 'DependenciesServiceName', ... ]);
 
 Pour chaque element du DOM avec l'attribute "rds-controller='ControllerName'"
-une instance de "ControllerClass" sera créée avec en premier parametre un dictionnaire des services en dépendance
+une instance de "ControllerClass" sera créée avec en premier parametre un dictionnaire des services en dépendances
     
 dans le scope du controller tous les éléments DOM avec l'attribute "rds-bind='variableName'"
 seront automatiquement binder au controller.
