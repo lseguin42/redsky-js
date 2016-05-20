@@ -257,7 +257,7 @@
     }
     
     /**
-     * Log value autorized of global __REDSKY_DEGUG_LEVEL__
+     * Log value autorized of global __REDSKY_DEBUG_LEVEL__
      * 
      * 0|1 => display [log, warning, error]
      * 2   => display [warning, error]
@@ -401,8 +401,8 @@
     
     module_export.redsky = redsky;
     
-    if (typeof __REDSKY_DEGUG_LEVEL__ == 'number') {
-        redsky.debug(__REDSKY_DEGUG_LEVEL__);
+    if (typeof __REDSKY_DEBUG_LEVEL__ == 'number') {
+        redsky.debug(__REDSKY_DEBUG_LEVEL__);
     }
     
 })(window);
