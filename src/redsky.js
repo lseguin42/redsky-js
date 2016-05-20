@@ -405,4 +405,4 @@
         redsky.debug(__REDSKY_DEBUG_LEVEL__);
     }
     
-})(window);
+})(this);
